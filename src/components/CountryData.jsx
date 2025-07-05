@@ -1,6 +1,7 @@
 import React from "react";
 
 const CountryData = ({ data, handleSelectCountry }) => {
+  
   return (
     <div className="grid  md:grid-cols-4 py-8 px-4 sm:px-20 gap-10 sm:gap-20">
       {data.map((country) => (

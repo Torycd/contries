@@ -1,8 +1,18 @@
-// import React from 'react'
+import { useEffect } from "react";
 
 import { FaArrowLeft } from "react-icons/fa";
 
 const SelectedCountry = ({ selectCountry: country, handleBack }) => {
+  // For title effect and clean up of title
+  useEffect(() => {
+    if (!country) return;
+    document.title = `${country.name}`;
+
+    return () => {
+      document.title = "Countries Info";
+    };
+  }, [country]);
+
   console.log(country);
   return (
     <div className="py-6 px-4 sm:px-20">

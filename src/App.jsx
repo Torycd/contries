@@ -19,16 +19,6 @@ const App = () => {
     setView(true);
     setSelectCountry(ct);
   };
-  // For title effect and clean up of title
-  useEffect(() => {
-    if (!selectCountry) return;
-    document.title = `${selectCountry.name}`;
-
-    return () => {
-      document.title = "Countries Info";
-    };
-  }, [selectCountry]);
-
   useEffect(() => {
     if (searchInput === "") {
       setData(DATA);
