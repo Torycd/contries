@@ -3,12 +3,23 @@ import DATA from "./assets/data.json";
 import NavBar from "./components/NavBar";
 import Search from "./components/Search";
 import CountryData from "./components/CountryData";
+import SelectedCountry from "./components/SelectedCountry";
 
 const App = () => {
   const [data, setData] = useState(DATA);
   const [searchInput, setSearchInput] = useState("");
   const [regionSelect, setRegionSelect] = useState("");
-  console.log(data);
+  const [selectCountry, setSelectCountry] = useState({});
+  const [view, setView] = useState(false);
+
+  const handleBack = () => {
+    setView(false);
+  };
+  const handleSelectCountry = (ct) => {
+    setView(true);
+    setSelectCountry(ct);
+  };
+  // console.log(data);
   useEffect(() => {
     if (searchInput === "") {
       setData(DATA);
@@ -31,18 +42,31 @@ const App = () => {
 
   return (
     <div className="">
-      <NavBar />
-      <div className="bg-gray-50 h-screen ">
-        {/* Search and region filter */}
-        <Search
-          setRegionSelect={setRegionSelect}
-          setSearchInput={setSearchInput}
-          searchInput={searchInput}
+      {view ? (
+        <SelectedCountry
+          handleBack={handleBack}
+          selectCountry={selectCountry}
         />
+      ) : (
+        <>
+          <NavBar />
+          <div className="bg-gray-50 h-screen ">
+            {/* Search and region filter */}
+            <Search
+              setRegionSelect={setRegionSelect}
+              setSearchInput={setSearchInput}
+              searchInput={searchInput}
+            />
 
-        {/* country data */}
-        <CountryData data={data} />
-      </div>
+            {/* country data */}
+
+            <CountryData
+              data={data}
+              handleSelectCountry={handleSelectCountry}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };
