@@ -24,30 +24,26 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
         </div>
         <div>
           <h2 className="text-2xl font-bold mb-4">{country.name}</h2>
-          <div className="grid grid-cols-2 gap-20 ">
-            <ul>
+          <div className="grid grid-cols-2 gap-20 text-gray-700 mb-5">
+            <ul className="space-y-3">
               <li>
-                Native Name: {country.nativeName}
-                <span></span>
+                <strong>Native Name:</strong> {country.nativeName}
               </li>
               <li>
-                population: {country.population.toLocaleString()}
-                <span></span>
+                <strong>population:</strong>{" "}
+                {country.population.toLocaleString()}
               </li>
               <li>
-                Region: {country.region}
-                <span></span>
+                <strong>Region:</strong> {country.region}
               </li>
               <li>
-                Sub Region: {country.subregion}
-                <span></span>
+                <strong>Sub Region:</strong> {country.subregion}
               </li>
               <li>
-                Capital: {country.capital}
-                <span></span>
+                <strong>Capital:</strong> {country.capital}
               </li>
             </ul>
-            <ul>
+            <ul className="space-y-3">
               <li>
                 <strong>Top Level Domain:</strong>{" "}
                 {country.topLevelDomain && country.topLevelDomain.join(", ")}
@@ -76,8 +72,18 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
               </li>
             </ul>
           </div>
-          <div>
-            Border Countries: <span className="border-1 border-gray-600"></span>
+          <div className="flex gap-2">
+            <strong>Border Countries:</strong>{" "}
+            <div className="flex justify-between gap-2 items-center">
+              {country.borders?.map((bd) => (
+                <span
+                  key={bd}
+                  className="border-2 px-3 text-[10px] py-[2px] rounded-sm border-gray-400 "
+                >
+                  {bd}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>

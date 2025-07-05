@@ -20,6 +20,18 @@ const App = () => {
     setSelectCountry(ct);
   };
   // console.log(data);
+
+  useEffect(() => {
+    document.title = "Countries";
+  }, []);
+
+  useEffect(() => {
+    document.title = `${selectCountry}`;
+
+    return () => {
+      document.title = "Countries";
+    };
+  }, [selectCountry]);
   useEffect(() => {
     if (searchInput === "") {
       setData(DATA);
