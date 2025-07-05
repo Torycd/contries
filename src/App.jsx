@@ -19,7 +19,6 @@ const App = () => {
     setView(true);
     setSelectCountry(ct);
   };
-  // console.log(data);
   // For title effect and clean up of title
   useEffect(() => {
     if (!selectCountry) return;
