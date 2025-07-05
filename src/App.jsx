@@ -9,7 +9,7 @@ const App = () => {
   const [data, setData] = useState(DATA);
   const [searchInput, setSearchInput] = useState("");
   const [regionSelect, setRegionSelect] = useState("");
-  const [selectCountry, setSelectCountry] = useState({});
+  const [selectCountry, setSelectCountry] = useState(null);
   const [view, setView] = useState(false);
 
   const handleBack = () => {
@@ -20,18 +20,16 @@ const App = () => {
     setSelectCountry(ct);
   };
   // console.log(data);
-
+  // For title effect and clean up of title
   useEffect(() => {
-    document.title = "Countries";
-  }, []);
-
-  useEffect(() => {
-    document.title = `${selectCountry}`;
+    if (!selectCountry) return;
+    document.title = `${selectCountry.name}`;
 
     return () => {
-      document.title = "Countries";
+      document.title = "Countries Info";
     };
   }, [selectCountry]);
+
   useEffect(() => {
     if (searchInput === "") {
       setData(DATA);
@@ -54,6 +52,7 @@ const App = () => {
 
   return (
     <div className="">
+      <NavBar handleBack={handleBack} />
       {view ? (
         <SelectedCountry
           handleBack={handleBack}
@@ -61,8 +60,7 @@ const App = () => {
         />
       ) : (
         <>
-          <NavBar />
-          <div className="bg-gray-50 h-screen ">
+          <div className="bg-gray-50 ">
             {/* Search and region filter */}
             <Search
               setRegionSelect={setRegionSelect}

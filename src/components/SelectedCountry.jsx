@@ -5,7 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 const SelectedCountry = ({ selectCountry: country, handleBack }) => {
   console.log(country);
   return (
-    <div className="py-8 px-20">
+    <div className="py-6 px-4 sm:px-20">
       <div className="mb-[100px]">
         <button
           className="flex justify-center items-center px-8 py-2 border-4 border-gray-300 rounded-sm"
@@ -18,13 +18,15 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
         </button>
       </div>
       {/* selected country image and info */}
-      <div className="grid grid-cols-2 space-x-20">
+      <div className="grid sm:grid-cols-2 space-y-5 sm:space-x-20">
         <div>
           <img src={country.flag} alt="" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold mb-4">{country.name}</h2>
-          <div className="grid grid-cols-2 gap-20 text-gray-700 mb-5">
+          <h2 className=" text-xl sm:text-2xl font-bold mb-4">
+            {country.name}
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-20 text-gray-700 mb-5">
             <ul className="space-y-3">
               <li>
                 <strong>Native Name:</strong> {country.nativeName}
@@ -74,7 +76,7 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
           </div>
           <div className="flex gap-2">
             <strong>Border Countries:</strong>{" "}
-            <div className="flex justify-between gap-2 items-center">
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 items-center">
               {country.borders?.map((bd) => (
                 <span
                   key={bd}

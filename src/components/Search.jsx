@@ -7,8 +7,8 @@ const Search = ({ setRegionSelect, setSearchInput, searchInput }) => {
     setRegionSelect(e.target.value);
   };
   return (
-    <div className="flex py-8 px-20 justify-between">
-      <div className="flex bg-white rounded-sm shadow-xl gap-10 justify-between items-center px-8">
+    <div className="flex flex-col gap-4 sm:flex-row py-4 px-4 sm:px-20 justify-between">
+      <div className="flex bg-white rounded-sm shadow-xl gap-10 justify-between items-center py-3 px-8">
         <span>
           <FaSearch className="text-gray-400" />
         </span>
@@ -16,7 +16,7 @@ const Search = ({ setRegionSelect, setSearchInput, searchInput }) => {
           type="text"
           placeholder="Search for a country..."
           onChange={(e) => setSearchInput(e.target.value)}
-          className="focus:outline-none w-[300px]"
+          className="focus:outline-none sm:w-[300px]"
           value={searchInput}
         />
       </div>
