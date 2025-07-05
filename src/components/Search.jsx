@@ -28,9 +28,11 @@ const Search = ({ setRegionSelect, setSearchInput, searchInput }) => {
           className="bg-white text-left shadow-xl py-3 px-8 rounded-sm font-semibold focus:outline-0 "
           onChange={handleChange}
         >
-          <option value="">Filter by region</option>
+          <option value="" hidden>
+            Filter by region
+          </option>
           <option value="Africa">Africa</option>
-          <option value="America">America</option>
+          <option value="Americas">Americas</option>
           <option value="Asia">Asia</option>
           <option value="Europe">Europe</option>
           <option value="Oceania">Oceania</option>
