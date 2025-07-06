@@ -1,19 +1,28 @@
 import { useEffect } from "react";
-
 import { FaArrowLeft } from "react-icons/fa";
 
 const SelectedCountry = ({ selectCountry: country, handleBack }) => {
-  // For title effect and clean up of title
   useEffect(() => {
     if (!country) return;
-    document.title = `${country.name}`;
-
+    document.title = `${country.name.official}`;
     return () => {
       document.title = "Countries Info";
     };
   }, [country]);
 
-  console.log(country);
+  // Safely get native name
+  const nativeName = country.name?.nativeName
+    ? Object.values(country.name.nativeName)[0]?.common
+    : country.name?.common;
+
+  // Get currencies
+  const currencies = country.currencies
+    ? Object.values(country.currencies)
+    : [];
+
+  // Get languages
+  const languages = country.languages ? Object.values(country.languages) : [];
+
   return (
     <div className="background h-dvh py-6 px-4 sm:px-20">
       <div className="mb-[100px]">
@@ -27,23 +36,26 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
           Back
         </button>
       </div>
+
       {/* selected country image and info */}
       <div className="grid sm:grid-cols-2 space-y-5 sm:space-x-20">
         <div>
-          <img src={country.flag} alt="" />
+          <img src={country.flags?.svg} alt={country.flags?.alt || "Flag"} />
         </div>
+
         <div>
-          <h2 className=" text-xl sm:text-2xl font-bold mb-4">
-            {country.name}
+          <h2 className="text-xl sm:text-2xl font-bold mb-4">
+            {country.name?.official}
           </h2>
-          <div className="grid sm:grid-cols-2 gap-20  mb-5">
+
+          <div className="grid sm:grid-cols-2 gap-20 mb-5">
             <ul className="space-y-3">
               <li>
-                <strong>Native Name:</strong> {country.nativeName}
+                <strong>Native Name:</strong> {nativeName}
               </li>
               <li>
-                <strong>population:</strong>{" "}
-                {country.population.toLocaleString()}
+                <strong>Population:</strong>{" "}
+                {country.population?.toLocaleString()}
               </li>
               <li>
                 <strong>Region:</strong> {country.region}
@@ -52,49 +64,52 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
                 <strong>Sub Region:</strong> {country.subregion}
               </li>
               <li>
-                <strong>Capital:</strong> {country.capital}
+                <strong>Capital:</strong> {country.capital?.[0]}
               </li>
             </ul>
+
             <ul className="space-y-3">
               <li>
-                <strong>Top Level Domain:</strong>{" "}
-                {country.topLevelDomain && country.topLevelDomain.join(", ")}
+                <strong>Top Level Domain:</strong> {country.tld?.join(", ")}
               </li>
 
               <li>
                 <strong>Currencies:</strong>{" "}
-                {country.currencies &&
-                  country.currencies.map((cur, idx) => (
-                    <span key={cur.code || idx}>
-                      {cur.name} ({cur.symbol})
-                      {idx !== country.currencies.length - 1 && ", "}
-                    </span>
-                  ))}
+                {currencies.map((cur, idx) => (
+                  <span key={idx}>
+                    {cur.name} ({cur.symbol})
+                    {idx !== currencies.length - 1 && ", "}
+                  </span>
+                ))}
               </li>
 
               <li>
                 <strong>Languages:</strong>{" "}
-                {country.languages &&
-                  country.languages.map((lg, idx) => (
-                    <span key={lg.iso639_1 || idx}>
-                      {lg.name}
-                      {idx !== country.languages.length - 1 && ", "}
-                    </span>
-                  ))}
+                {languages.map((lang, idx) => (
+                  <span key={idx}>
+                    {lang}
+                    {idx !== languages.length - 1 && ", "}
+                  </span>
+                ))}
               </li>
             </ul>
           </div>
-          <div className="flex gap-2">
-            <strong>Border Countries:</strong>{" "}
+
+          <div className="flex flex-wrap items-start gap-2">
+            <strong>Border Countries:</strong>
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 items-center">
-              {country.borders?.map((bd) => (
-                <span
-                  key={bd}
-                  className="border-2 px-3 text-[10px] py-[2px] rounded-sm border-gray-400 "
-                >
-                  {bd}
-                </span>
-              ))}
+              {country.borders?.length > 0 ? (
+                country.borders.map((bd) => (
+                  <span
+                    key={bd}
+                    className="border-2 px-3 text-[10px] py-[2px] rounded-sm border-gray-400"
+                  >
+                    {bd}
+                  </span>
+                ))
+              ) : (
+                <span className="text-sm opacity-60">None</span>
+              )}
             </div>
           </div>
         </div>

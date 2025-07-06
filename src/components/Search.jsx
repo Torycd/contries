@@ -6,6 +6,8 @@ const Search = ({ setRegionSelect, setSearchInput, searchInput }) => {
   const handleChange = (e) => {
     setRegionSelect(e.target.value);
   };
+
+  
   return (
     <div className="flex flex-col gap-4 sm:flex-row py-4 px-4 sm:px-20 justify-between">
       <div className="flex element rounded-sm shadow-xl gap-10 justify-between items-center py-3 px-8">

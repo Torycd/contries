@@ -1,18 +1,45 @@
 import { useEffect, useState } from "react";
-import DATA from "./assets/data.json";
 import NavBar from "./components/NavBar";
 import Search from "./components/Search";
 import CountryData from "./components/CountryData";
 import SelectedCountry from "./components/SelectedCountry";
 
 const App = () => {
-  const [data, setData] = useState(DATA);
   const [searchInput, setSearchInput] = useState("");
   const [regionSelect, setRegionSelect] = useState("");
   const [selectCountry, setSelectCountry] = useState(null);
   const [view, setView] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [isLoading, setIsloading] = useState(false);
+  const [error, setError] = useState("");
 
+  const [data, setData] = useState([]);
+
+  // Fetch Api
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setIsloading(true);
+        setError("");
+        const response = await fetch(
+          "https://restcountries.com/v3.1/all?fields=name,flags,capital,currencies,borders,population,region,cca3,languages,topLevelDomain"
+        );
+        if (!response.ok)
+          throw new Error("Something wrong with fecthing Country Data");
+        const data = await response.json();
+        console.log(data);
+        setData(data);
+        setError("");
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsloading(false);
+      }
+    };
+    getData();
+  }, []);
+
+  // handle back button
   const handleBack = () => {
     setView(false);
   };
@@ -20,24 +47,18 @@ const App = () => {
     setView(true);
     setSelectCountry(ct);
   };
+  // Search by country name
   useEffect(() => {
-    if (searchInput === "") {
-      setData(DATA);
-    } else {
-      setData(
-        DATA.filter((cty) =>
-          cty.name.toLowerCase().includes(searchInput.toLowerCase())
-        )
-      );
-    }
+    setData((prev) =>
+      prev.filter((cty) =>
+        cty.name.toLowerCase().includes(searchInput.toLowerCase())
+      )
+    );
   }, [searchInput]);
 
+  // search by region
   useEffect(() => {
-    if (regionSelect === "") {
-      setData(DATA);
-    } else {
-      setData(DATA.filter((dt) => dt.region === regionSelect));
-    }
+    setData((prev) => prev.filter((dt) => dt.region === regionSelect));
   }, [regionSelect]);
 
   return (
@@ -58,10 +79,21 @@ const App = () => {
               searchInput={searchInput}
             />
             {/* country data */}
-            <CountryData
-              data={data}
-              handleSelectCountry={handleSelectCountry}
-            />
+            {!isLoading && !error && (
+              <CountryData
+                data={data}
+                handleSelectCountry={handleSelectCountry}
+              />
+            )}
+            {isLoading && (
+              <div className="flex flex-col items-center gap-10 h-dvh">
+                <h2 className="text-xl font-bold">Loading Countries data</h2>
+                <p>
+                  What country are you currently in? 🗺, Search once the data
+                  loads to see information about that country.
+                </p>
+              </div>
+            )}
           </div>
         </>
       )}
