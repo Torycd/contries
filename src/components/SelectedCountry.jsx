@@ -24,7 +24,7 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
   const languages = country.languages ? Object.values(country.languages) : [];
 
   return (
-    <div className="background h-dvh py-6 px-4 sm:px-20">
+    <div className="background py-6 px-4 sm:px-20">
       <div className="mb-[100px]">
         <button
           className="flex justify-center items-center px-8 py-2 border-4 border-gray-300 rounded-sm"
@@ -119,5 +119,3 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
 };
 
 export default SelectedCountry;
-
-

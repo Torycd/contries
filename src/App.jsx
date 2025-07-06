@@ -70,7 +70,10 @@ const App = () => {
   }, [searchInput, regionSelect, originalData]);
 
   return (
-    <div className="background" data-theme={isDark ? "dark" : "light"}>
+    <div
+      className="background min-h-screen"
+      data-theme={isDark ? "dark" : "light"}
+    >
       <NavBar isDark={isDark} setIsDark={setIsDark} handleBack={handleBack} />
       {view ? (
         <SelectedCountry
