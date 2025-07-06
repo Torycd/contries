@@ -15,7 +15,7 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
 
   console.log(country);
   return (
-    <div className="py-6 px-4 sm:px-20">
+    <div className="background h-dvh py-6 px-4 sm:px-20">
       <div className="mb-[100px]">
         <button
           className="flex justify-center items-center px-8 py-2 border-4 border-gray-300 rounded-sm"
@@ -36,7 +36,7 @@ const SelectedCountry = ({ selectCountry: country, handleBack }) => {
           <h2 className=" text-xl sm:text-2xl font-bold mb-4">
             {country.name}
           </h2>
-          <div className="grid sm:grid-cols-2 gap-20 text-gray-700 mb-5">
+          <div className="grid sm:grid-cols-2 gap-20  mb-5">
             <ul className="space-y-3">
               <li>
                 <strong>Native Name:</strong> {country.nativeName}

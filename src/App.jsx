@@ -11,6 +11,7 @@ const App = () => {
   const [regionSelect, setRegionSelect] = useState("");
   const [selectCountry, setSelectCountry] = useState(null);
   const [view, setView] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   const handleBack = () => {
     setView(false);
@@ -40,8 +41,8 @@ const App = () => {
   }, [regionSelect]);
 
   return (
-    <div className="">
-      <NavBar handleBack={handleBack} />
+    <div className="background" data-theme={isDark ? "dark" : "light"}>
+      <NavBar isDark={isDark} setIsDark={setIsDark} handleBack={handleBack} />
       {view ? (
         <SelectedCountry
           handleBack={handleBack}
@@ -49,16 +50,14 @@ const App = () => {
         />
       ) : (
         <>
-          <div className="bg-gray-50 ">
+          <div>
             {/* Search and region filter */}
             <Search
               setRegionSelect={setRegionSelect}
               setSearchInput={setSearchInput}
               searchInput={searchInput}
             />
-
             {/* country data */}
-
             <CountryData
               data={data}
               handleSelectCountry={handleSelectCountry}

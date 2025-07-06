@@ -1,13 +1,12 @@
-import React from "react";
+import "../index.css";
 
 const CountryData = ({ data, handleSelectCountry }) => {
-  
   return (
     <div className="grid  md:grid-cols-4 py-8 px-4 sm:px-20 gap-10 sm:gap-20">
       {data.map((country) => (
         <div
           key={country.name}
-          className="bg-white shadow-xl h-full rounded-sm"
+          className="element shadow-xl h-full rounded-sm"
           onClick={() => handleSelectCountry(country)}
         >
           <img
