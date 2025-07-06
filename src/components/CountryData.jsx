@@ -6,11 +6,11 @@ const CountryData = ({ data, handleSelectCountry }) => {
       {data.map((country) => (
         <div
           key={country.name}
-          className="element shadow-xl h-full rounded-sm"
+          className="element shadow-xl h-full rounded-md transform transition duration-300 hover:scale-105"
           onClick={() => handleSelectCountry(country)}
         >
           <img
-            className=" w-full h-40%"
+            className=" w-full h-40% rounded-t-md"
             src={country.flag}
             alt={country.name}
           />
