@@ -49,19 +49,6 @@ const App = () => {
     setView(true);
     setSelectCountry(ct);
   };
-  // Search by country name
-  // useEffect(() => {
-  //   setData((prev) =>
-  //     prev.filter((cty) =>
-  //       cty.name.common.toLowerCase().includes(searchInput.toLowerCase())
-  //     )
-  //   );
-  // }, [searchInput]);
-
-  // search by region
-  // useEffect(() => {
-  //   setData((prev) => prev.filter((dt) => dt.region === regionSelect));
-  // }, [regionSelect]);
 
   // Combined filter by name and region
   useEffect(() => {
