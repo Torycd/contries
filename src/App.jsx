@@ -13,6 +13,7 @@ const App = () => {
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState("");
 
+  const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
 
   // Fetch Api
@@ -28,6 +29,7 @@ const App = () => {
           throw new Error("Something wrong with fecthing Country Data");
         const data = await response.json();
         console.log(data);
+        setOriginalData(data); // store full data
         setData(data);
         setError("");
       } catch (err) {
@@ -48,18 +50,37 @@ const App = () => {
     setSelectCountry(ct);
   };
   // Search by country name
-  useEffect(() => {
-    setData((prev) =>
-      prev.filter((cty) =>
-        cty.name.toLowerCase().includes(searchInput.toLowerCase())
-      )
-    );
-  }, [searchInput]);
+  // useEffect(() => {
+  //   setData((prev) =>
+  //     prev.filter((cty) =>
+  //       cty.name.common.toLowerCase().includes(searchInput.toLowerCase())
+  //     )
+  //   );
+  // }, [searchInput]);
 
   // search by region
+  // useEffect(() => {
+  //   setData((prev) => prev.filter((dt) => dt.region === regionSelect));
+  // }, [regionSelect]);
+
+  // Combined filter by name and region
   useEffect(() => {
-    setData((prev) => prev.filter((dt) => dt.region === regionSelect));
-  }, [regionSelect]);
+    let filtered = originalData;
+
+    if (regionSelect) {
+      filtered = filtered.filter(
+        (cty) => cty.region.toLowerCase() === regionSelect.toLowerCase()
+      );
+    }
+
+    if (searchInput) {
+      filtered = filtered.filter((cty) =>
+        cty.name.common.toLowerCase().includes(searchInput.toLowerCase())
+      );
+    }
+
+    setData(filtered);
+  }, [searchInput, regionSelect, originalData]);
 
   return (
     <div className="background" data-theme={isDark ? "dark" : "light"}>
