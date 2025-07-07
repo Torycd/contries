@@ -40,3 +40,11 @@ const CountryData = ({ data, handleSelectCountry }) => {
 };
 
 export default CountryData;
+
+// const countryAlpaCodeToName = () => {
+//   const countryMap = {};
+//   data.forEach((country) => {
+//     countryMap[country.alpha3Code] = country.name;
+//   });
+//   return countryMap;
+// };
