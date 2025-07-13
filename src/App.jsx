@@ -15,35 +15,31 @@ const App = () => {
   const { isLoading, error, originalData, data, setData } = useApi(
     "https://restcountries.com/v3.1/all?fields=name,flags,capital,currencies,borders,population,region,cca3,languages,topLevelDomain"
   );
-  
 
   // handle back button
-  const handleBack = () => {
+  function handleBack() {
     setView(false);
-  };
-  const handleSelectCountry = (ct) => {
+  }
+  function handleSelectCountry(ct) {
     setView(true);
     setSelectCountry(ct);
-  };
+  }
 
   // Combined filter by name and region
   useEffect(() => {
     let filtered = originalData;
-
     if (regionSelect) {
       filtered = filtered.filter(
         (cty) => cty.region.toLowerCase() === regionSelect.toLowerCase()
       );
     }
-
     if (searchInput) {
       filtered = filtered.filter((cty) =>
         cty.name.common.toLowerCase().includes(searchInput.toLowerCase())
       );
     }
-
     setData(filtered);
-  }, [searchInput, regionSelect, originalData]);
+  }, [searchInput, regionSelect, originalData, setData]);
 
   return (
     <div

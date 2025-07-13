@@ -3,7 +3,7 @@
 import { FaSearch } from "react-icons/fa";
 
 const Search = ({ setRegionSelect, setSearchInput, searchInput }) => {
-  const handleChange = (e) => {
+  function handleChange (e) {
     setRegionSelect(e.target.value);
   };
 
