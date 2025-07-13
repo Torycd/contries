@@ -15,7 +15,6 @@ const App = () => {
   const { isLoading, error, originalData, data, setData } = useApi(
     "https://restcountries.com/v3.1/all?fields=name,flags,capital,currencies,borders,population,region,cca3,languages,topLevelDomain"
   );
-
   // handle back button
   function handleBack() {
     setView(false);
@@ -24,7 +23,6 @@ const App = () => {
     setView(true);
     setSelectCountry(ct);
   }
-
   // Combined filter by name and region
   useEffect(() => {
     let filtered = originalData;
