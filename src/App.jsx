@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import Search from "./components/Search";
 import CountryData from "./components/CountryData";
 import SelectedCountry from "./components/SelectedCountry";
+import { useApi } from "./useApi";
 
 const App = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -10,36 +11,11 @@ const App = () => {
   const [selectCountry, setSelectCountry] = useState(null);
   const [view, setView] = useState(false);
   const [isDark, setIsDark] = useState(false);
-  const [isLoading, setIsloading] = useState(false);
-  const [error, setError] = useState("");
 
-  const [originalData, setOriginalData] = useState([]);
-  const [data, setData] = useState([]);
-
-  // Fetch Api
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        setIsloading(true);
-        setError("");
-        const response = await fetch(
-          "https://restcountries.com/v3.1/all?fields=name,flags,capital,currencies,borders,population,region,cca3,languages,topLevelDomain"
-        );
-        if (!response.ok)
-          throw new Error("Something wrong with fecthing Country Data");
-        const data = await response.json();
-        console.log(data);
-        setOriginalData(data); // store full data
-        setData(data);
-        setError("");
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsloading(false);
-      }
-    };
-    getData();
-  }, []);
+  const { isLoading, error, originalData, data, setData } = useApi(
+    "https://restcountries.com/v3.1/all?fields=name,flags,capital,currencies,borders,population,region,cca3,languages,topLevelDomain"
+  );
+  
 
   // handle back button
   const handleBack = () => {
